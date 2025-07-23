@@ -3,25 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GPS Tracker Upload</title>
+  <title>GPS Route Visualizer</title>
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" />
   <link rel="stylesheet" href="style.css" />
-  <link href="maplibre/maplibre-gl.css" rel="stylesheet" />
 </head>
 <body>
-  <div class="container">
-    <h1>📍 Route Tracker</h1>
-    <p>Upload your GPS CSV file to visualize your route.</p>
-
-    <input type="file" id="fileInput" accept=".csv" />
-    <div id="progressWrapper" style="display:none;">
-      <progress id="uploadProgress" value="0" max="100"></progress>
-      <p id="uploadStatus">Processing...</p>
+  <div class="upload-section" id="upload-section">
+    <div class="upload-box">
+      <h1>GPS Route Visualizer</h1>
+      <p>Upload your GPS CSV file to generate a map-based movement trail.</p>
+      <label for="fileInput" class="custom-file-upload">
+        Select GPS CSV File
+      </label>
+      <input type="file" id="fileInput" accept=".csv" />
+      <div id="progressWrapper">
+        <div class="progress-bar" id="uploadProgress"></div>
+        <div id="uploadStatus">Waiting for file...</div>
+      </div>
     </div>
-
-    <div id="map" style="display:none;"></div>
   </div>
 
-  <script src="maplibre/maplibre-gl.js"></script>
+  <div class="map-page" id="map-page" style="display:none">
+    <div class="controls">
+      <button id="playBtn">Play</button>
+      <button id="pauseBtn">Pause</button>
+      <label>Speed:
+        <input type="range" id="speedSlider" min="0.25" max="5" step="0.25" value="1">
+      </label>
+      <label>Position:
+        <input type="range" id="positionSlider" min="0" max="100" step="1" value="0">
+      </label>
+    </div>
+    <div id="map"></div>
+  </div>
+
+  <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
