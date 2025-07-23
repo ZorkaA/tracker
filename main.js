@@ -5,28 +5,27 @@ const uploadSection = document.getElementById('upload-section');
 const mapPage = document.getElementById('map-page');
 const playBtn = document.getElementById('playBtn');
 const pauseBtn = document.getElementById('pauseBtn');
+const restartBtn = document.getElementById('restartBtn');
 const speedSlider = document.getElementById('speedSlider');
 const positionSlider = document.getElementById('positionSlider');
+const speedValue = document.getElementById('speedValue');
+const positionValue = document.getElementById('positionValue');
 
 let map, marker, route = [], intervalId = null, currentIndex = 0, speed = 1000;
 
 fileInput.addEventListener('change', (e) => {
   const file = e.target.files[0];
   if (!file) return;
-
   const reader = new FileReader();
   progressBar.style.width = '0%';
   progressText.textContent = 'Reading file...';
-
   reader.onloadstart = () => {
     progressBar.style.width = '10%';
     progressText.textContent = 'Loading...';
   };
-
   reader.onload = () => {
     progressBar.style.width = '100%';
     progressText.textContent = 'Processing...';
-
     const lines = reader.result.split('\n');
     for (let line of lines) {
       if (line.includes('Lat_deg') || line.includes('GPS fix') || !line.includes(',')) continue;
@@ -38,15 +37,12 @@ fileInput.addEventListener('change', (e) => {
         if (!isNaN(lat) && !isNaN(lon)) route.push([lon, lat]);
       }
     }
-
     if (route.length === 0) {
       alert("No valid coordinates found.");
       return;
     }
-
     transitionToMap();
   };
-
   reader.readAsText(file);
 });
 
@@ -59,11 +55,10 @@ function transitionToMap() {
 function setupMap() {
   map = new maplibregl.Map({
     container: 'map',
-    style: 'https://demotiles.maplibre.org/style.json',
+    style: 'https://tiles.openfreemap.org/styles/positron',
     center: route[0],
     zoom: 16
   });
-
   map.on('load', () => {
     map.addSource('route', {
       type: 'geojson',
@@ -75,7 +70,6 @@ function setupMap() {
         }
       }
     });
-
     map.addLayer({
       id: 'route-line',
       type: 'line',
@@ -85,11 +79,9 @@ function setupMap() {
         'line-width': 4
       }
     });
-
     marker = new maplibregl.Marker({ color: '#f0f6fc' })
       .setLngLat(route[0])
       .addTo(map);
-
     positionSlider.max = route.length - 1;
   });
 }
@@ -104,6 +96,7 @@ playBtn.addEventListener('click', () => {
     }
     marker.setLngLat(route[currentIndex]);
     positionSlider.value = currentIndex;
+    positionValue.textContent = `${Math.round((currentIndex / (route.length - 1)) * 100)}%`;
     currentIndex++;
   }, 1000 / parseFloat(speedSlider.value));
 });
@@ -113,7 +106,17 @@ pauseBtn.addEventListener('click', () => {
   intervalId = null;
 });
 
+restartBtn.addEventListener('click', () => {
+  clearInterval(intervalId);
+  intervalId = null;
+  currentIndex = 0;
+  marker.setLngLat(route[0]);
+  positionSlider.value = 0;
+  positionValue.textContent = '0%';
+});
+
 speedSlider.addEventListener('input', () => {
+  speedValue.textContent = `${speedSlider.value}x`;
   if (intervalId) {
     clearInterval(intervalId);
     intervalId = null;
@@ -124,4 +127,5 @@ speedSlider.addEventListener('input', () => {
 positionSlider.addEventListener('input', (e) => {
   currentIndex = parseInt(e.target.value);
   marker.setLngLat(route[currentIndex]);
+  positionValue.textContent = `${Math.round((currentIndex / (route.length - 1)) * 100)}%`;
 });
