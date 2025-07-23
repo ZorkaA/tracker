@@ -1,40 +1,118 @@
+/* GENERAL LAYOUT */
 body {
   margin: 0;
   font-family: 'Segoe UI', Roboto, sans-serif;
-  background-color: #0d1117;
+  background-color: #0e1117;
   color: #c9d1d9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: start;
-  min-height: 100vh;
-  padding-top: 40px;
+  overflow-x: hidden;
 }
 
-.container {
+/* LANDING PAGE UPLOAD SECTION */
+.upload-section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, #0e1117 60%, #161b22);
+}
+
+.upload-box {
   text-align: center;
-  width: 90%;
-  max-width: 600px;
+  background-color: #161b22;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid #30363d;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.upload-box h1 {
+  margin-bottom: 10px;
+  font-weight: 500;
+  font-size: 2rem;
+}
+
+.upload-box p {
+  margin-bottom: 30px;
+  color: #8b949e;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #238636;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.custom-file-upload:hover {
+  background-color: #2ea043;
 }
 
 input[type="file"] {
-  margin-top: 20px;
-  padding: 10px;
-  background: #161b22;
-  border: 1px solid #30363d;
-  color: #c9d1d9;
-  border-radius: 6px;
-  cursor: pointer;
+  display: none;
 }
 
-progress {
-  width: 100%;
-  margin-top: 15px;
+/* PROGRESS BAR */
+#progressWrapper {
+  margin-top: 20px;
+}
+
+.progress-bar {
+  height: 8px;
+  width: 0%;
+  background-color: #238636;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+#uploadStatus {
+  font-size: 0.85rem;
+  color: #8b949e;
+  margin-top: 8px;
+}
+
+/* MAP PAGE */
+.map-page {
+  background-color: #0e1117;
+  padding-top: 20px;
 }
 
 #map {
-  height: 500px;
-  margin-top: 30px;
-  border: 2px solid #30363d;
-  border-radius: 8px;
+  height: calc(100vh - 150px);
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* PLAYBACK CONTROLS */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px 20px;
+  flex-wrap: wrap;
+  background-color: #161b22;
+  border-bottom: 1px solid #30363d;
+}
+
+.controls button {
+  background-color: #21262d;
+  color: #c9d1d9;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.controls button:hover {
+  background-color: #30363d;
+}
+
+.controls input[type=range] {
+  cursor: pointer;
 }
