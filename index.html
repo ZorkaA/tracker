@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GPS Route Visualizer</title>
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -22,21 +23,24 @@
       </div>
     </div>
   </div>
-
   <div class="map-page" id="map-page" style="display:none">
     <div class="controls">
-      <button id="playBtn">Play</button>
-      <button id="pauseBtn">Pause</button>
-      <label>Speed:
-        <input type="range" id="speedSlider" min="0.25" max="5" step="0.25" value="1">
+      <button id="restartBtn" title="Restart"><i class="fas fa-backward"></i></button>
+      <button id="playBtn" title="Play"><i class="fas fa-play"></i></button>
+      <button id="pauseBtn" title="Pause"><i class="fas fa-pause"></i></button>
+      <label class="slider-container">
+        Speed:
+        <input type="range" id="speedSlider" min="0.5" max="10" step="0.5" value="1">
+        <span class="slider-value" id="speedValue">1x</span>
       </label>
-      <label>Position:
+      <label class="slider-container">
+        Position:
         <input type="range" id="positionSlider" min="0" max="100" step="1" value="0">
+        <span class="slider-value" id="positionValue">0%</span>
       </label>
     </div>
     <div id="map"></div>
   </div>
-
   <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
   <script src="main.js"></script>
 </body>
