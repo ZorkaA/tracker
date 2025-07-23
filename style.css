@@ -23,6 +23,13 @@ body {
   border-radius: 12px;
   border: 1px solid #30363d;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.upload-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
 }
 
 .upload-box h1 {
@@ -44,15 +51,12 @@ body {
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease;
 }
 
 .custom-file-upload:hover {
   background-color: #2ea043;
-}
-
-input[type="file"] {
-  display: none;
+  transform: scale(1.05);
 }
 
 /* PROGRESS BAR */
@@ -102,17 +106,73 @@ input[type="file"] {
   background-color: #21262d;
   color: #c9d1d9;
   border: none;
-  padding: 8px 16px;
+  padding: 10px;
   border-radius: 6px;
-  font-size: 0.95rem;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .controls button:hover {
   background-color: #30363d;
+  transform: scale(1.1);
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .controls input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 150px;
+  height: 8px;
+  background: #30363d;
+  border-radius: 4px;
+  outline: none;
+  transition: background 0.2s ease;
+}
+
+.controls input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #58a6ff;
+  border-radius: 50%;
   cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.controls input[type=range]::-webkit-slider-thumb:hover {
+  background: #79b8ff;
+  transform: scale(1.2);
+}
+
+.controls input[type=range]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #58a6ff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.controls input[type=range]::-moz-range-thumb:hover {
+  background: #79b8ff;
+  transform: scale(1.2);
+}
+
+.slider-value {
+  font-size: 0.9rem;
+  color: #c9d1d9;
+  min-width: 40px;
+  text-align: right;
 }
