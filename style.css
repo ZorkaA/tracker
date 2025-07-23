@@ -9,27 +9,35 @@ body {
 
 /* LANDING PAGE UPLOAD SECTION */
 .upload-section {
-  height: 100vh;
+  min-height: calc(100vh - 96px); /* 96px is an estimate for hero height, adjust if needed */
+  height: auto;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   background: linear-gradient(to bottom, #0e1117 60%, #161b22);
+  margin-top: 0;
+  padding-top: 0;
+  width: 100%;
 }
 
+/* Glassmorphism for upload box */
 .upload-box {
   text-align: center;
-  background-color: #161b22;
+  background: rgba(22, 27, 34, 0.85);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   padding: 40px;
-  border-radius: 12px;
-  border: 1px solid #30363d;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border-radius: 18px;
+  border: 1.5px solid rgba(88, 166, 255, 0.25);
   transform: translateY(0);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 46px;
+  margin-bottom: 46px;
 }
-
 .upload-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 12px 40px 0 rgba(88, 166, 255, 0.18);
 }
 
 .upload-box h1 {
@@ -46,17 +54,16 @@ body {
 .custom-file-upload {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #238636;
-  color: white;
+  background: linear-gradient(90deg, #58a6ff 60%, #2ea043 100%);
+  color: #fff;
   border-radius: 6px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
   transition: background-color 0.2s ease-in-out, transform 0.2s ease;
+  box-shadow: 0 2px 8px 0 rgba(88, 166, 255, 0.10);
 }
-
 .custom-file-upload:hover {
-  background-color: #2ea043;
-  transform: scale(1.05);
+  background: linear-gradient(90deg, #2ea043 60%, #58a6ff 100%);
 }
 
 /* PROGRESS BAR */
@@ -100,6 +107,7 @@ body {
   flex-wrap: wrap;
   background-color: #161b22;
   border-bottom: 1px solid #30363d;
+  box-shadow: 0 2px 16px 0 rgba(88, 166, 255, 0.08);
 }
 
 .controls button {
@@ -121,6 +129,34 @@ body {
 .controls button:hover {
   background-color: #30363d;
   transform: scale(1.1);
+}
+
+/* Animated button hover (make back-btn effect more circular) */
+.controls button, .custom-file-upload, .back-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  border-radius: 6px; /* Less rounded */
+}
+.back-btn {
+  border-radius: 10px;
+}
+.controls button::after, .custom-file-upload::after, .back-btn::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(88, 166, 255, 0.15);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
+  z-index: -1;
+}
+.controls button:hover::after, .custom-file-upload:hover::after, .back-btn:hover::after {
+  width: 200%;
+  height: 200%;
 }
 
 .slider-container {
@@ -175,4 +211,98 @@ body {
   color: #c9d1d9;
   min-width: 40px;
   text-align: right;
+}
+
+/* Hide native file input */
+input[type="file"] {
+  display: none;
+}
+
+/* Back Button */
+.back-btn {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  background: none;
+  border: none;
+  color: #58a6ff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: color 0.2s;
+  border-radius: 10px; /* Less rounded */
+  padding: 6px;
+}
+.back-btn:hover {
+  color: #2ea043;
+}
+
+/* Reduce space between hero and upload box */
+.hero-section {
+  text-align: center;
+  padding: 36px 20px 30px 20px;
+  background: linear-gradient(120deg, #161b22 60%, #58a6ff 100%);
+  background-size: 200% 200%;
+  animation: gradientMove 6s ease-in-out infinite alternate, fadeInDown 1s;
+  position: relative;
+}
+.logo-placeholder {
+  font-size: 3rem;
+  color: #58a6ff;
+  margin-bottom: 10px;
+  animation: popIn 0.7s;
+}
+.hero-section h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  letter-spacing: 1px;
+}
+.hero-tagline {
+  color: #8b949e;
+  font-size: 1.2rem;
+  margin-bottom: 0;
+}
+
+/* Remove features/footer styles */
+.features-section, .feature-card, .footer, .footer-content, .footer-socials {
+  display: none !important;
+}
+
+/* SPINNER */
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 3px solid #58a6ff;
+  border-top: 3px solid #161b22;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes fadeInDown {
+  0% { opacity: 0; transform: translateY(-40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.7); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }

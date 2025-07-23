@@ -9,14 +9,15 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <header class="hero-section">
+    <div class="logo-placeholder"><i class="fas fa-location-arrow"></i></div>
+    <h1>Seacom</h1>
+    <p class="hero-tagline">Debug Output Visualizer</p>
+  </header>
   <div class="upload-section" id="upload-section">
     <div class="upload-box">
-      <h1>GPS Route Visualizer</h1>
-      <p>Upload your GPS CSV file to generate a map-based movement trail.</p>
-      <label for="fileInput" class="custom-file-upload">
-        Select GPS CSV File
-      </label>
-      <input type="file" id="fileInput" accept=".csv" />
+      <label for="fileInput" class="custom-file-upload">Select GPS CSV File</label>
+      <input type="file" id="fileInput" accept=".csv" style="display:none;" />
       <div id="progressWrapper">
         <div class="progress-bar" id="uploadProgress"></div>
         <div id="uploadStatus">Waiting for file...</div>
@@ -24,10 +25,11 @@
     </div>
   </div>
   <div class="map-page" id="map-page" style="display:none">
+    <button class="back-btn" id="backBtn" title="Back"><i class="fas fa-arrow-left"></i></button>
     <div class="controls">
       <button id="restartBtn" title="Restart"><i class="fas fa-backward"></i></button>
-      <button id="playBtn" title="Play"><i class="fas fa-play"></i></button>
-      <button id="pauseBtn" title="Pause"><i class="fas fa-pause"></i></button>
+      <button id="playBtn" title="Play" style="display:inline-block;"><i class="fas fa-play"></i></button>
+      <button id="pauseBtn" title="Pause" style="display:none;"><i class="fas fa-pause"></i></button>
       <label class="slider-container">
         Speed:
         <input type="range" id="speedSlider" min="0.5" max="10" step="0.5" value="1">
